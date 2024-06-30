@@ -1,0 +1,997 @@
+
+<!-- Mirrored from spacehosts.fr/jeux/asteroide/medium.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Jun 2024 09:28:12 GMT -->
+<body>
+
+
+
+<progress value="5" min="0" max="100" id="reload" high="99" low="30">CHARGING</progress>
+
+
+<canvas id="ctx" width="1300"  height="650" ></canvas>
+<a href="asteroidversion2.html" id="retrybtn">
+<img src="retryimage.png"></a>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"89bd1fc37b773d16","version":"2024.4.1","r":1,"token":"75ab4007d9b541d785630f00608a9ccd","b":1}' crossorigin="anonymous"></script>
+</body>
+<style>
+ body
+    {
+        background:lightgray;
+        
+    }
+    
+    
+    
+    
+    
+    #reload
+    {
+        position: absolute;
+        top:300px;
+        -webkit-transform:rotate(-90deg);
+    }
+    
+#ctx
+{
+	border:1px solid black;
+	
+	border-radius:60%;
+	
+	
+}
+#ctx:hover
+{
+
+   width:101%px;
+   height:101%px;
+   box-shadow:1px 1px 30px black,-1px -1px 30px black;
+   cursor:none;
+
+}
+#retrybtn 
+{
+    display:none;
+    position: relative;
+    top:-250px;
+    left:630px;
+    width:5px;
+    height:5px;
+    
+    
+    
+    
+    
+}
+a
+    {
+        text-decoration:none ;
+    }
+
+</style>
+<script>
+const FPS = 30; // frames per second
+const FRICTION = 0.7; // friction coefficient of space (0 = no friction, 1 = lots of friction)
+const SHIP_SIZE = 30; // ship height in pixels
+const SHIP_THRUST = 5; // acceleration of the ship in pixels per second per second
+
+
+var r=0;
+var score=0;
+var bchoice=1;
+var uchoice=1;//for score upgrade and 0 is for health
+var upgradecount=0;
+var framecount=0;
+var framecounte2=0;
+var enemydestroyed=0;
+var rotateangle=0;
+const TURN_SPEED = 360;
+var ctx=document.getElementById('ctx').getContext('2d');
+ctx.font="40px Sans-serif";
+ctx.fillStyle="white";
+//gamearea images
+var h=650;
+var w=1300;
+var starttime=Date.now();
+var e=0;
+var meteor=0;
+    
+var aim=new Image();
+aim.src="aim4.png";
+    
+    
+    
+var shipimage=new Image();
+shipimage.src="sship1.png";
+//shipimage.height="40";
+//shipimage.width="40";  
+    
+
+//var shipimage2=new Image();
+//shipimage2.src="rocket2.png";
+    
+ var asteroid1=new Image();
+asteroid1.src="asteroid.png";   
+    
+var explosion=new Image();
+explosion.src="explosion.png";
+
+    
+var explosion2=new Image();
+explosion2.src="explosion2.png";    
+    
+var ebullet=new Image();
+ebullet.src="ebullet.png";    
+
+    
+var missile=new Image();
+missile.src="missile.png";
+ 
+    
+
+    
+var upgradeimage=new Image();
+upgradeimage.src="upgradescore.png";
+var alienimg=new Image();
+alienimg.src="sship6.png";
+//game area sounds
+  var bulletsound=new sound("sounds/laser.m4a",5,0.1);  
+    var explodesound=new sound("sounds/explode.m4a",2,1.0);
+     var smallexplodesound=new sound("sounds/explode.m4a",2,0.5);
+      var hitsound=new sound("sounds/hit.m4a",2,1.0);
+     var upgradesound=new sound("sounds/music-high.m4a",2,1.0);
+         var shock=new sound("sounds/shock.wav",2,1.0);
+    
+ function sound(src,maxstream=1,vol=1.0)
+    {
+        this.streamNum=0;
+        this.streams=[];
+        for(var i=0;i<maxstream;i++)
+            {
+                this.streams.push(new Audio(src));
+                this.streams[i].volume=vol;
+            }
+        this.play=function()
+        {
+            this.streamNum=(this.streamNum+1)%maxstream;
+            this.streams[this.streamNum].play();
+        }
+    }
+    
+    
+    
+    
+//player object
+var p={
+ x:650,
+ spdx:30,
+ y:540,
+ spdy:5,
+ name:'P',
+ hp:10,
+ height:80,
+ width:80,
+ r: SHIP_SIZE / 2,
+ a: 90 / 180 * Math.PI, // convert to radians
+ rot: 0,
+ attackcount:0,
+
+};
+    
+// set up event handlers
+document.addEventListener("keydown", keyDown);
+document.addEventListener("keyup", keyUp);
+    
+function keyDown(/** @type {KeyboardEvent} */ ev) {
+            switch(ev.keyCode) {
+                case 37: // left arrow (rotate ship left)
+                    p.rot = TURN_SPEED / 180 * Math.PI / 25;
+                    break;
+               
+                case 39: // right arrow (rotate ship right)
+                    p.rot = -TURN_SPEED / 180 * Math.PI / 25;
+                    break;
+            }
+        }
+
+        function keyUp(/** @type {KeyboardEvent} */ ev) {
+            switch(ev.keyCode) {
+                case 37: // left arrow (stop rotating left)
+                    p.rot = 0;
+                    break;
+
+                case 39: // right arrow (stop rotating right)
+                    p.rot = 0;
+                    break;
+            }
+        }
+    
+    
+    
+ drawplayer=function(p)
+{
+
+   ctx.save();
+if(p.hp>=7)
+{
+ctx.fillStyle="green";
+}
+if(p.hp<7 && p.hp>5)
+    {
+        ctx.fillStyle="yellow";
+    }
+if(p.hp<=5)
+    {
+        ctx.fillStyle="red";
+    }
+ ctx.drawImage(shipimage,p.x,p.y,80,80);
+    ctx.strokeRect(p.x-10,p.y+80,10*10,10);//health bars
+ ctx.fillRect(p.x-10,p.y+80,p.hp*10,10);
+    
+//aim crosshair
+     ctx.drawImage(aim,p.x+20,p.y-60,40,40);
+ctx.restore();
+}
+
+
+
+
+
+//new player when meteor hits 
+ drawplayer2=function(p)
+{
+ctx.fillStyle="green";
+ ctx.drawImage(shipimage2,p.x,p.y);
+ ctx.fillStyle="white";
+ 
+}
+//mousemovement
+document.onmousemove=function(mouse)
+{
+
+var mouseX=mouse.clientX-8;
+var mouseY=mouse.clientY-8;
+if(mouseX<0)
+  mouseX=0;
+if(mouseX>1250)
+  mouseX=1250;
+if(mouseY<0)
+  mouseY=0;
+if(mouseY>620)
+  mouseY=620;
+  
+p.x=mouseX;
+p.y=mouseY;
+
+
+
+}
+
+
+//enemy generation
+var enemyList={};
+enemy=function(id,x1,spdx,y1,spdy,height,width,radius)
+{
+var e3={
+ x:x1,
+ spdx:spdx,
+ y:y1,
+ spdy:spdy,
+ name:'E',
+ id:id,
+ height:height,
+ width:width,
+ radius:radius,
+ 
+};
+enemyList[id]=e3;
+}
+
+
+
+
+enemygenerator=function()
+{
+var x=Math.random()*600;
+var spdx=Math.random()*10;
+var y=Math.random()*100;
+var spdy=Math.random()*15;
+var name=Math.random();
+var id=Math.random();
+var height=70;
+var width=70;
+var radius=Math.random()*(50-20+1)+20;
+enemy(id,x,spdx,y,spdy,height,width,radius)
+}
+ drawenemy=function(p)
+{ctx.fillStyle="white";
+ ctx.strokeStyle="white";
+ ctx.beginPath();
+ctx.drawImage(asteroid1,p.x-20,p.y-20,2*p.radius,2*p.radius);
+ ctx.stroke();
+ctx.fillStyle="white";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+enemygenerator();
+enemygenerator();
+enemygenerator();
+enemygenerator();
+enemygenerator();
+enemygenerator();
+enemygenerator();
+enemygenerator();
+
+ updateEnitity=function(p)
+{
+
+drawenemy(p);
+entityPosition(p);
+ 
+}
+
+
+
+ 
+    
+    
+
+    
+    
+    
+    
+    
+//upgrade score
+var upgradeList={};
+ upgrade=function(id,x,spdx,y,spdy,height,width,photo)
+{
+var e3={
+ x:x,
+ spdx:spdx,
+ y:y,
+ spdy:spdy,
+ name:'E',
+ id:id,
+ height:height,
+ width:width,
+ upgradetimer:0,
+ 
+};
+upgradeList[id]=e3;
+}
+ upgradegenerator=function()
+{
+var x=Math.random()*w;
+var spdx=0;
+var y=Math.random()*h;
+var spdy=0;
+var name=Math.random();
+var id=Math.random();
+var height=70;
+var width=70;
+upgrade(id,x,spdx,y,spdy,height,width)
+}
+ drawupgrade=function(p)
+{
+ctx.drawImage(upgradeimage,p.x,p.y,50,50);
+  ctx.beginPath();
+ ctx.strokeStyle="white";
+ctx.lineWidth=5;
+ ctx.arc(p.x+25,p.y+30,30,1.5*Math.PI,-p.upgradetimer*0.081+1.5*Math.PI);//timer circle
+ ctx.stroke();
+ ctx.lineWidth=1;
+     
+ctx.beginPath();
+ ctx.strokeStyle="gray";
+ctx.lineWidth=1;
+ ctx.arc(p.x+25,p.y+30,30,0,2*Math.PI);//inside circle for decoration
+ ctx.stroke();
+     
+ctx.fillStyle="red";
+ctx.restore();
+}
+updateEnitityupgrade=function(p)
+{
+
+drawupgrade(p);
+entityPosition(p);
+ 
+}
+
+//alien list
+ var alienList={};
+ alien=function(id,x,spdx,y,spdy,height,width,photo)
+{
+var e3={
+ x:x,
+ spdx:spdx,
+ y:y,
+ spdy:spdy,
+ name:'E',
+ id:id,
+ height:height,
+ width:width,
+alientimer:25,
+ 
+};
+alienList[id]=e3;
+}
+
+
+
+
+ upgradealiengenerator=function()
+{
+var x=Math.random()*(700-10+1)+10;
+var spdx=Math.random()*(16-8+1)+8;
+var y=10;
+var spdy=2;
+var name=Math.random();
+var id=Math.random();
+var height=100;
+var width=100;
+alien(id,x,spdx,y,spdy,height,width)
+}
+ drawalien=function(p)
+{ctx.fillStyle="red";
+ctx.drawImage(alienimg,p.x,p.y,100,100);
+ 
+ctx.fillStyle="white";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ updatealien=function(p)
+{
+
+drawalien(p);
+entityPositionalien(p);
+ 
+}
+ 
+entityPositionalien=function(p)
+{
+
+//entity p movememnt
+ p.x=p.x+p.spdx;
+p.y=p.y+p.spdy;
+
+
+ 
+ if(p.x>1200 || p.x<5)
+ {
+ 
+    p.spdx=-p.spdx;
+	
+ 
+ }
+//  if(p.y>600 || p.y<0)
+// {
+// 
+//    p.spdy=-p.spdy;
+//	
+// 
+// }
+
+ 
+
+}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+    
+    
+//bullet list
+var bulletList={};
+ bullet=function(id,x,spdx,y,spdy,height,width,photo)
+{
+var e3={
+ x:x,
+ spdx:spdx,
+ y:y,
+ spdy:spdy,
+ name:'E',
+ id:id,
+ height:height,
+ width:width,
+ timer:0,
+ 
+};
+if(bchoice==1)
+{
+bulletsound.play();
+}
+else
+{
+    shock.play();
+}
+bulletList[id]=e3;
+}
+
+
+
+
+ bulletgenerator=function()
+{
+var x=p.x+37;
+var spdx=0;
+var y=p.y;
+var spdy=-10;
+var name=Math.random();
+var id=Math.random();
+var height=20;
+var width=2;
+bullet(id,x,spdx,y,spdy,height,width)
+}
+ drawbullet=function(p)
+{
+   if(bchoice==1)//1 for normal bullet
+{     //for lasers
+     ctx.fillStyle="red";
+     ctx.fillRect(p.x+20,p.y+25,p.width,p.height);
+     ctx.fillRect(p.x-20,p.y+25,p.width,p.height);
+     ctx.fillStyle="white";
+    //
+     
+    //for normal rocket
+//    ctx.drawImage(missile,p.x,p.y-30,40,60);
+//     ctx.drawImage(missile,p.x-50,p.y-30,40,60);
+//    
+    
+}
+    if(bchoice==0)//for special bullet
+        {
+            ctx.drawImage(ebullet,p.x-70,p.y-50,150,120);
+         
+        }
+}
+ 
+ updateEnititybullet=function(p)
+{
+
+drawbullet(p);
+entityPositionbullet(p);
+ 
+}
+ entityPositionbullet=function(p)
+{
+
+//entity p movememnt
+ p.x=p.x+p.spdx;
+ p.y=p.y+p.spdy;
+
+
+ 
+ 
+
+ 
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ entityPosition=function(p)
+{
+
+//entity p movememnt
+ p.x=p.x+p.spdx;
+ p.y=p.y+p.spdy;
+
+
+ 
+ if(p.x>1250 || p.x<0)
+ {
+ 
+    p.spdx=-p.spdx;
+	
+ 
+ }
+  if(p.y>600 || p.y<0)
+ {
+ 
+    p.spdy=-p.spdy;
+	
+ 
+ }
+
+ 
+
+}
+ var exp=0;
+
+ explode=function(b,a)
+ {        exp++;
+          ctx.drawImage(b,a.x,a.y,100,100);
+ }
+ 
+ 
+ 
+//testing collision through distance formula
+ getDistanceBetween=function(e1,e2)
+{
+var vx=e1.x-e2.x;
+var vy=e1.y-e2.y;
+return Math.sqrt(vx*vx+vy*vy);
+
+
+
+}
+
+ testCollision=function(e1,e2)
+{
+
+var d=getDistanceBetween(e1,e2);
+return d<40;
+
+
+}
+    
+ createRetryBtn=function()
+    {
+        document.getElementById("retrybtn").style.display="block"; //for retry button image
+        document.getElementById("ctx").style.cursor="pointer";
+    }
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ var bg=new Image();
+bg.src="galaxy6.jpg";
+
+
+function background()
+    {
+        
+        this.x=0,
+        this.y=0,
+        this.w=bg.width,
+        this.h=bg.height;
+        this.render=function()
+        {
+            ctx.drawImage(bg,this.x-=1,0);
+//            document.getElementById("demo").innerHTML=this.x;
+            if(this.x<=-2599)
+                {
+                    this.x=0;
+                }
+        }
+            
+    }
+var back=new background();
+ 
+ document.onclick=function(mouse)
+    {   
+        if(p.attackcount>=25)  //on click the red bullet shoots 
+            {   bchoice=1;
+                bulletgenerator();
+         
+                p.attackcount=0;
+            }
+    }
+ 
+document.oncontextmenu=function(mouse) //on click the electric bullet shoots 
+    {   
+    
+        if(p.attackcount>=100)
+            {   bchoice=0;
+                bulletgenerator();
+                
+                 
+                p.attackcount=0;
+            }
+       mouse.preventDefault();
+    }
+gameover=function()
+{
+   //upon losing the game
+
+    hitsound.play();
+enemyList={};
+upgradeList={};
+
+document.getElementById("reload").style.display="none";
+var timesurvived=Date.now()-starttime;
+ctx.fillStyle="black";
+//ctx.fillRect(0,0,650,1300);
+ctx.fillStyle="white";
+//ctx.font="40px Arial";
+ctx.fillText("You lost!",570,300);
+ctx.fillText("Score: "+score,550,350);
+ctx.fillText("Asteroid Destroyed: "+enemydestroyed,450,390);
+createRetryBtn();
+starttime=Date.now();
+
+clearInterval(timeout);
+ctx.fillStyle="black";
+ctx.restore();
+
+}
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+update=function ()
+{
+
+ctx.clearRect(0,0,1300,650);
+document.getElementById("reload").value=p.attackcount;//bars for eshock charge and health left
+
+back.render();
+score++;
+framecount++;
+upgradecount++;
+p.attackcount++;
+if(framecount%300==0)
+   enemygenerator();//enemy respawn
+
+if(upgradecount%140==0)
+    upgradegenerator();//upgrade respawn
+
+//if(framecount%25==0)
+//    bulletgenerator(); to automatically genearte the bullet
+
+if(framecount%280==0 && score>00)
+    upgradealiengenerator();
+    
+   
+   
+
+
+drawplayer(p);
+//p.a += p.rot;
+
+for(var key in upgradeList)
+    {   
+         updateEnitityupgrade(upgradeList[key]);
+        var toremove=false;
+      
+        upgradeList[key].upgradetimer++;
+        if(upgradeList[key].upgradetimer>75)//upgradetimer is of 75
+            {
+                toremove=true;
+            }
+        
+        
+        var isColliding=testCollision(p,upgradeList[key]);//upgrade list collision
+        if(isColliding)
+            {    upgradesound.play();
+                score=score+1000;
+                toremove=true;
+                
+                
+            }
+        if(toremove)
+            {
+               delete upgradeList[key]; 
+            }
+       
+    }
+
+//for bullet
+for(var key in bulletList)
+    {
+        
+        updateEnititybullet(bulletList[key]);
+        
+        bulletList[key].timer++;
+         
+           if(bulletList[key].timer>=25 && bchoice==1)
+               {
+                   delete bulletList[key];
+                   continue;
+               }
+           if(bulletList[key].timer>=50 && bchoice==0)
+               {
+                   delete bulletList[key];
+                   continue;
+               }
+           //for ebullet
+        
+        for(var key2 in enemyList)
+            {
+                var iscollidingwithbullet=testCollision(bulletList[key],enemyList[key2]);
+                if(iscollidingwithbullet && bchoice==0)//for ebullet
+                    {   
+                        
+                        enemydestroyed++;
+                        explode(explosion,enemyList[key2]);
+                        explodesound.play();
+                         delete enemyList[key2];
+                        
+                         break;
+                        
+                    }
+                if(iscollidingwithbullet && enemyList[key2].radius<=30 && bchoice==1)//for small meteor one hits destroys the meteor
+                    {   
+                        enemydestroyed++;
+                        explodesound.play();
+                         enemyList[key2].radius-=5;
+                        explode(explosion,enemyList[key2]);
+                       
+                        delete bulletList[key];
+                        delete enemyList[key2];
+                        break;
+                    }
+                if(iscollidingwithbullet && enemyList[key2].radius>30 && bchoice==1)//for large metor one hit shrinks the meteor
+                    {
+                        enemyList[key2].radius-=10;
+                         smallexplodesound.play();
+                        explode(explosion2,enemyList[key2]);
+                    }
+            }
+        
+        for(var key3 in alienList)
+            {
+                var iscollidingwithbullet=testCollision(bulletList[key],alienList[key3]);
+                if(iscollidingwithbullet && bchoice==0)
+                    {
+                        explodesound.play();
+                        explode(explosion,alienList[key3]);
+                        
+                        delete alienList[key3];
+                        
+                        score+=2000;
+                    }
+            }
+        
+        
+    }
+    
+    
+    
+  //for alien
+    for(var key in alienList)
+    {   
+         updatealien(alienList[key]);
+        var toremove=false;
+      
+        alienList[key].alientimer++;
+        if(alienList[key].alientimer>300)//alien dies in 300 count
+            {
+                toremove=true;
+            }
+        
+        
+        var isColliding=testCollision(p,alienList[key]);//upgrade list collision
+        if(isColliding)
+            {    
+                explodesound.play();
+                 explode(explosion,p);
+                p.hp=0;
+                toremove=true;
+                if(p.hp<=0)
+                 {
+                   gameover();
+                 }
+                
+                
+            }
+        if(toremove)
+            {
+               delete alienList[key]; 
+            }
+       
+    }
+    
+    
+
+
+for(var key in enemyList)
+{
+
+updateEnitity(enemyList[key]);
+
+
+
+
+var isColliding=testCollision(p,enemyList[key]);
+if(isColliding)
+{
+delete enemyList[key];
+p.hp=p.hp-2;
+hitsound.play();
+ explode(explosion2,p);
+
+if(p.hp<=0)
+    {
+        gameover();
+    }
+
+
+
+
+
+
+
+}
+
+
+
+
+}
+
+if(p.hp>0)
+{
+//ctx.fillText(p.hp+" HP",650,650);
+ctx.fillText("Score: "+score,550,50);
+}
+
+}
+
+
+
+
+var timeout=setInterval(update,30);//25 fps
+</script>

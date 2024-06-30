@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<!-- Mirrored from spacehosts.fr/jeux/bataille/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Jun 2024 09:27:56 GMT -->
+<head>
+	
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="CSS/styles.css">
+	<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;display=swap" rel="stylesheet">
+
+	<title>Simplon - La Grande bataille spatiale!</title>
+
+</head>
+
+<body>
+
+	<a id="back-to-website" href="../index.html" title="Back to my Site!" class="linkGreen"></a>
+
+
+	<!-- Images de planètes sur le fond, elles seront cliquable pour certaines -->
+	<img class="imgPlanet" id="imgMercure" src="IMG/mercure.png"/>
+	<img class="imgPlanet" id="imgVenus" src="IMG/Venus.png"/>
+	<img class="imgPlanet" id="imgJupiters" src="IMG/Jupiters.png"/>
+	<img class="imgPlanet" id="imgMars" src="IMG/Mars.png"/>
+	<img class="imgPlanet" id="imgTerre" src="IMG/Terre.png"/>
+	<img class="imgPlanet" id="imgSaturne" src="IMG/Saturne.png"/>
+	<img class="imgPlanet" id="imgLune" src="IMG/Lune.png"/>
+	<img class="imgPlanet uranusPos1" id="imgUranus" src="IMG/Uranus.png" />
+	<img class="imgPlanet" id="imgNeptune" src="IMG/Neptune.png"/>
+
+	<!-- Affichage de l'avatar et du pseudo du joueur une fois qu'ils seront récupérés -->
+	<div id="userCapitaine" class="hidden">
+		<img id="avatarCapitaine" src="IMG/pony.jpg">
+		<p id="pseudoCapitaine"></p>
+	</div>
+
+	<!-- Première div, visible au début, puis cachée dès que le pseudo sera validé -->
+	<div id="containerAccueil">
+
+		
+
+
+		<!--<img src="IMG/Terre.png" class="imgPlanet" id="gameLogo" alt="logo du jeu" title="Bataille Spaciale"/>-->
+		<h1>Bataille Spatiale</h1>
+		<input type="text" id="inputPseudo" placeholder="Votre Pseudo"/>
+		<input type="button" id="inputValider" class="button" value="Valider"/>
+		<div id="themeColorSelect">
+			<div id="themeColorGreen"></div>
+			<div id="themeColorRed"></div>
+			<div id="themeColorPurple"></div>
+			<div id="themeColorBlue"></div>
+			<div id="themeColorOrange"></div>
+		</div>
+	</div>
+
+	<!-- Seconde div, cachée initiellement, qui sera affichée une fois le pseudo entré sur la
+	première page. Options a sélectionner ici, qui détermineront l'affichage des grilles de jeu
+	sur la div suivante, et ce que fera le joueur ensuite -->
+	<div id="containerDifficulty" class="hidden">
+
+		<h2 id="welcome"></h2>
+		<label id="labelPlayerMode" for="playerMode">Mode de Jeu :</label>
+		<!-- Mode de jeu. Un seul peut être séléctionné, et cela déterminera les affichages -->
+		<div id="modesDeJeu">
+			<label id="playerMode1Label">1 Joueur</label><input type="radio" id="playerMode1" name="playerMode" value="1 Joueur"/>
+			<!--<label id="playerMode2Label">2 Joueurs</label><input type="radio" id="playerMode2" name="playerMode" value="2 Joueurs"/>-->
+		</div>
+
+			
+		<!-- Mode de difficulté pour le joueur -->
+		<label id="labelPlayerDifficulty" for="playerDifficulty">Mode de Difficulté du Joueur :</label>
+		<select id="playerDifficulty" name="playerDifficulty" class="colorGreen">
+			<option>Facile</option>
+			<option selected>Normal</option>
+			<option>Difficile</option>
+		</select>
+
+		<!-- Mode de difficulté pour l'ordinateur -->
+		<div id="computerDifficultyBox" class="hidden">
+			<label id="labelComputerDifficulty" for="computerDifficulty">Difficulté de l'Ordinateur :</label>	
+			<select id="computerDifficulty">
+				<option>Facile</option>
+				<option selected>Normal</option>
+				<option>Difficile</option>
+			</select>
+		</div>		
+		<input type="button" id="inputValiderDifficulty" class="button" value="Jouer !"/>
+	</div>
+
+	<!-- Troisième div, celle du jeu, qui sera affichée après sélection et validation des options
+	dans la div précédente. Les deux grilles seront affichées en fonction du mode de jeu. -->
+	<div id="containerGameGrid" class="hidden">
+
+		<h3 id="turnInfo"></h3>
+		<h3 id="otherInfo"></h3>
+
+		<div id="playerGrid" class="grid"></div>
+		<div id="computerGrid" class="grid" class="hidden"></div>
+		<!--<div id="player2Grid" class="grid" class="hidden"></div>-->
+		<div id="shipPlaceBox" class="grid hidden"></div>
+		<div id="chat-container">
+			<div id="turn-box"></div>
+			<div id="chat-box"></div>
+		</div>
+
+	
+		<input type="button" id="playInput" value="Jouer" class="button hidden"/>
+		<input type="button" id="shipPlacement" value="Changer Sens" class="hidden"/>
+	</div>
+		
+
+	<!-- Dernière div qui s'affichera, celle qui affiche les scores en cas de victoire, ou bien un message en cas de défaite -->
+	<div id="score-tab" class="hidden"></div>
+	<div id="game-over-tab" class="hidden"></div>
+	
+
+	<!-- Blagounette. -->
+	<div id="ponyJoke" class="hidden">
+		<img src="IMG/pony2.jpg">
+	</div>
+
+<script type="text/javascript" src="JS/scripts.js"></script>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"89bd1f86edc26f60","version":"2024.4.1","r":1,"token":"75ab4007d9b541d785630f00608a9ccd","b":1}' crossorigin="anonymous"></script>
+</body>
+
+<!-- Mirrored from spacehosts.fr/jeux/bataille/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Jun 2024 09:27:59 GMT -->
+</html>

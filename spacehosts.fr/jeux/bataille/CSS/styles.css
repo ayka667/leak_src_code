@@ -1,0 +1,827 @@
+/* Image de fond, polices spéciales, et conditions générales */
+body {
+    background-image: url("../IMG/fond2.jpg");
+    background-size:cover;
+    font-family: 'Press Start 2P', cursive;
+    font-size:0;
+    margin:0;
+    padding:0;
+    color:#00ff00;
+    width:100vw;
+    height:100vh;
+}
+
+
+#back-to-website {
+    position:fixed;
+    top:2vh;
+    left:1vw;
+    width:7vh;
+    height:7vh;
+}
+
+.linkGreen {
+    background:url('../IMG/returnGreen.png');
+    background-size: contain;
+}
+
+.linkRed {
+    background:url('../IMG/returnRed.png');
+    background-size: contain;
+}
+
+.linkPurple {
+    background:url('../IMG/returnPurple.png');
+    background-size: contain;
+}
+
+.linkOrange {
+    background:url('../IMG/returnOrange.png');
+    background-size: contain;
+}
+
+.linkBlue {
+    background:url('../IMG/returnBlue.png');
+    background-size: contain;
+}
+
+.linkPink {
+    background:url('../IMG/returnPink.png');
+    background-size: contain;
+}
+
+
+
+/* Affichage principal, qui sera caché et visible au fur et à mesure des étapes */
+#containerAccueil, #containerDifficulty, #containerGameGrid, #score-tab {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    top:30%;
+    margin-left:auto;
+    margin-right:auto;
+    width:20%;
+    font-weight: bold;
+    text-align:center;
+    font-size:2.7vw;
+}
+
+
+
+
+
+
+
+/* Placement des images des planètes sur le fonc, qui seront utilisées pour certaines actions */
+.imgPlanet {
+    position:fixed;
+    width:8%;
+    /*height:16%;*/
+}
+
+#imgMercure {
+    top:5%;
+    right:10%;
+}
+
+#imgVenus {
+    bottom:15%;
+    right:25%;
+}
+
+#imgJupiters {
+    bottom:10%;
+    left:10%;
+}
+
+#imgMars {
+    top:30%;
+    left:15%;
+}
+
+#imgTerre {
+    top:3%;
+    left:45%;
+}
+
+#imgSaturne {
+    bottom:3%;
+    left:35%;
+    width:13%;
+   /* height:26%;*/
+}
+
+#imgLune {
+    top:4%;
+    left:53%;
+    width:2%;
+/*    height:4%;
+*/}
+
+#imgNeptune {
+    top:35%;
+    right:27%;
+    width:4%;
+/*    height:8%;
+*/}
+
+#imgUranus {
+/*    height:10%;
+*/    width:5%;
+}
+
+.uranusPos1 {
+    position: fixed;
+    top:50%;
+    right:3%; 
+}
+
+.uranusPos2 {
+    position: fixed;
+    top:3%;
+    right:75%; 
+}
+
+.uranusPos3 {
+    position: fixed;
+    top:85%;
+    right:35%; 
+}
+
+
+
+
+/* Page d'accueil, logo, input pour le pseudo, et premier bouton de validation */
+/*#gameLogo {
+    position:relative;
+    margin-left:auto;
+    margin-right:auto;
+    width:150px;
+    height:150px;
+}*/
+
+
+
+/* Input de la première page + boutons redondants */
+h1 {
+    margin-top:-5%;
+    font-size: 2.7vw;
+    text-shadow: 3px 3px 4px black;
+    text-align:center;
+    margin-left:-5%;
+}
+
+#inputPseudo {
+    margin-top:2%;
+    margin-bottom:6%;
+    margin-left:auto;
+    margin-right:auto;
+    border: 3px solid #00ff00;
+    border-radius:50px;
+    width: 75%;
+    padding:3%;
+    text-align:center;
+    font-weight:bold;
+    background-color:black;
+    color:white;
+    font-size:1vw;
+}
+
+
+
+#inputPseudo:focus::placeholder {
+    color:transparent;
+}
+
+#inputValider, #inputValiderDifficulty, #shipPlacement, #playInput {
+    margin-left:auto;
+    margin-right:auto;
+    border: 3px solid black;
+    background-color:#00ff00;
+    border-radius: 30px;
+    width: 40%;
+    padding:2%;
+    font-weight:bold;
+    font-size:0.9vw;
+}
+
+#inputValider:hover, #inputValiderDifficulty:hover, #shipPlacement:hover, #playInput:hover {
+    background-color:black;
+    color: #00FF00 ;
+    border: 3px solid #00FF00 ;
+}
+
+
+
+
+
+
+
+
+
+/* Partie relative à la séléction des thèmes de couleurs */
+.colorGreen {
+    background-color:#00ff00 !important;
+    color:black !important;
+    border: 3px solid black !important;
+}
+
+.colorGreen:hover {
+    background-color:black !important;
+    color:#00ff00 !important;
+    border: 3px solid #00FF00 !important;
+}
+
+.borderGreen {
+    border: 3px solid #00FF00 !important;
+}
+
+.colorRed {
+    background-color:#FF0000 !important;
+    color:black !important;
+    border: 3px solid black !important;
+}
+
+.colorRed:hover {
+    background-color:black !important;
+    color:#ff0000 !important;
+    border: 3px solid #FF0000 !important;
+}
+
+.borderRed {
+    border: 3px solid red !important;
+}
+
+.colorPurple {
+    background-color:#BA55D3 !important;
+    color:black !important;
+    border: 3px solid black !important;
+}
+
+.colorPurple:hover {
+    background-color:black !important;
+    color:#BA55D3 !important;
+    border: 3px solid#BA55D3 !important;
+}
+
+.borderPurple {
+    border: 3px solid #BA55D3 !important;
+}
+
+.colorOrange {
+    background-color:#FF8C00 !important;
+    color:black !important;
+    border: 3px solid black !important;
+}
+
+.colorOrange:hover {
+    background-color:black !important;
+    color:#ff8C00 !important;
+    border: 3px solid #FF8C00 !important;
+}
+
+.borderOrange {
+    border: 3px solid #FF8C00 !important;
+}
+
+
+.colorBlue {
+    background-color:#0000CD !important;
+    color:black !important;
+    border: 3px solid black !important;
+}
+
+.colorBlue:hover {
+    background-color:black !important;
+    color:#0000CD!important;
+    border: 3px solid #0000CD !important;
+}
+
+.borderBlue {
+    border: 3px solid #0000CD!important;
+}
+
+.colorPink {
+    background-color:#fd6c9e !important;
+    color:black !important;
+    border: 3px solid black !important;
+}
+
+.colorPink:hover {
+    background-color:black !important;
+    color:#fd6c9e !important;
+    border: 3px solid #fd6c9e !important;
+}
+
+.borderPink {
+    border: 3px solid #fd6c9e !important;
+}
+
+#themeColorSelect {
+    display: flex;
+    flex-direction:row;
+    margin-top:3vh;
+    justify-content: space-evenly;
+}
+
+#themeColorSelect div {
+    width: 4vh;
+    height:4vh;
+    border: 3px solid black;
+}
+
+#themeColorGreen {
+    background-color:#00ff00;
+}
+
+#themeColorRed {
+   background-color:#ff0000;
+}
+
+#themeColorPurple {
+    background-color:#ba55d3;
+ }
+
+ #themeColorOrange {
+    background-color:#ff8c00;
+ }
+
+ #themeColorBlue {
+    background-color:#0000CD; 
+ }
+
+.gridGreen {
+     border: 1px solid #00FF00 !important;
+ }
+
+.gridRed{
+    border: 1px solid #FF0000 !important;
+}
+
+.gridPurple{
+    border: 1px solid #ba55d3 !important;
+}
+
+.gridOrange{
+    border: 1px solid #ff8C00 !important;
+}
+
+.gridBlue{
+    border: 1px solid #0000CD !important;
+}
+
+.gridPink{
+    border: 1px solid #fd6c9e !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Deuxième "page" avec options du jeu, liste déroulantes, choix du mode de jeu, et deuxième 
+bouton de validation */
+#welcome {
+    margin-bottom:8%;
+    font-size:1.7vw;
+    text-shadow: 3px 3px 4px black;
+}
+
+#playerMode {
+    margin-top:6%;
+}
+
+#playerMode1Label {
+    font-size: 0.8vw;
+}
+
+/*#playerMode2Label {
+    font-size:10px;
+}*/
+
+#modesDeJeu {
+    display:inline-block;
+}
+#labelPlayerDifficulty {
+    margin-top:8%;
+    font-size: 1vw;
+    line-height:3vh;
+}
+
+#playerDifficulty {
+    margin-top:6%;
+    padding:1%;
+    background-color: black;
+    border:2px solid #00FF00;
+    color: #00FF00;
+    font-weight:bold;
+    text-align-last:center;
+    font-size:1vw;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background-image: url('../IMG/chevron.png');
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-position-y: center;
+}
+
+#labelPlayerMode {
+    margin-bottom:2%;
+    font-size: 1vw;
+}
+
+#playerDifficulty {
+    margin-bottom:5%;
+}
+
+#inputValiderDifficulty {
+    margin-top: 5%;
+}
+
+#computerDifficultyBox {
+    display: flex;
+    flex-direction: column;
+}
+
+#labelComputerDifficulty {
+    margin-bottom:5%;
+}
+
+#containerDifficulty {
+    top:20%;
+}
+
+/* Partie sur le côté pour afficher l'avatar et le pseudo du joueur */
+/*#userCapitaine {
+    position: fixed;
+    top:7vh;
+    left:3vw;
+    display:flex;
+    flex-direction: column;
+    font-weight:bold;
+    font-size:18px;
+}*/
+
+/*#avatarCapitaine {
+    width:7vw;
+    height:15vh;  
+}*/
+
+
+
+
+
+
+
+
+
+
+/* Définition de la troisième page, celle du jeu, et gestion des deux grilles du joueur et
+de l'ordinateur */
+#containerGameGrid {
+    width: 95%;
+    height: 95%;
+    top: 5%;
+}
+
+.grid {
+    width:25vw;
+    height:25vw;
+    display:flex;
+    flex-wrap: wrap;
+    background-color :black;
+    margin-right:-15vh;    
+}
+
+.gridBox {
+    width:2.5vw;
+    height:2.5vw;
+    border: 1px solid #00ff00;
+    margin: -1px;
+    background-color:black;
+}
+
+.spotHidden {
+    background-color:black !important;
+}
+
+.spotHit {
+    background-color:red !important;
+}
+
+.spotMiss {
+    background-color:gray !important;
+}
+
+#playerGrid {
+    position:fixed;
+    top:5%;
+    left:20%;
+}
+
+#computerGrid, #player2Grid {
+    position:fixed;
+    top:5%;
+    right:20%;
+    background-color: black;
+}
+
+#player2Grid {
+    background-color:black;
+}
+
+
+/* Div contenant les vaisseaux du joueur à placer */
+#shipPlaceBox {
+    position:fixed;
+    width:15%;
+    height:48%;
+    top:5%;
+    left:3%;
+    background-color: transparent;
+}
+
+#shipPlacement {
+    position: fixed;
+    top:60%;
+    left:4.5%;
+    width:8%;
+    height:5%;
+    padding:0;
+}
+
+#playInput {
+    position: fixed;
+    bottom:65%;
+    left:48.5%;
+    width:8%;
+    height:5%;
+    padding:0;
+}
+
+
+
+/* Boites de chat contenant les messages informatifs */
+#chat-container {
+    width:57%;
+    height:27%;
+    position:absolute;
+    bottom:10%;
+    left:25%;
+    background-color:black;
+}
+
+#chat-box {
+    background-color: black;
+    border:3px solid #00FF00;
+    overflow:scroll;
+    font-size:0.8vw;
+    height:24vh;
+    padding-top:1vh;
+    margin-top:-3px;
+}
+
+#turn-box {
+    position: relative;
+    top:0;
+    height:3vh;
+    border:3px solid #00FF00;
+    font-size:1vw;
+    padding-bottom:-1vh;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Classes des vaisseaux pour l'apparence ET pour le placement du joueur */
+.Corvette {
+    background-color: orange;
+}
+
+.Fregate {
+    background-color: pink;
+}
+
+.Navette {
+    background-color: chartreuse;
+}
+
+.Cuirasse {
+    background-color:gray;
+}
+
+.Cargo {
+    background-color: white;
+}
+
+.Croiseur {
+    background-color: aqua;
+}
+
+.Vaisseau_de_Commandement {
+    background-color: brown;
+}
+
+.containerCorvette {
+    display:flex;
+}
+
+.containerCorvetteVertical {
+    display:flex;
+    flex-direction: column !important;
+    margin-right:1vw;
+}
+
+.containerFregate {
+    display:flex;
+}
+
+.containerFregateVertical {
+    display:flex;
+    flex-direction: column !important;
+    margin-right:1vw;
+}
+
+.containerNavette {
+    display:flex;
+}
+
+.containerNavetteVertical {
+    display:flex;
+    flex-direction: column !important;
+    margin-right:1vw;
+}
+
+.containerCuirasse {
+    display:flex;
+}
+
+.containerCuirasseVertical {
+    display:flex;
+    flex-direction: column !important;
+    margin-right:1vw;
+}
+
+.containerCroiseur {
+    display:flex;
+}
+
+.containerCroiseurVertical {
+    display:flex;
+    flex-direction: column !important;
+    margin-right:1vw;
+
+}
+
+.containerCargo {
+    display:flex;
+}
+
+.containerCargoVertical {
+    display:flex;
+    flex-direction: column !important;
+    margin-right:1vw;
+
+}
+
+.containerVaisseau_de_Commandement {
+    display:flex;
+}
+
+.containerVaisseau_de_CommandementVertical {
+    display:flex;
+    flex-direction: column !important;
+    margin-right:1vw;
+
+}
+
+
+
+
+
+/* Table des scores et message de gameOver */
+#score-tab {
+    height:75vh;
+    width:75vw;
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color:black;
+    padding:3vh;
+    overflow:scroll;
+    border:3px solid #00FF00;
+}
+
+.score {
+    font-size:1.4vw
+}
+
+#game-over-tab {
+    height:15vh;
+    width:25vw;
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color:black;
+    padding:3vh;
+    text-align:center;
+    border:3px solid #00FF00;
+    font-size:1.2vw;
+}
+
+
+
+
+/* Blagues et autres */
+#ponyJoke {
+    position:fixed;
+    top:30vh;
+    left:40vw;
+}
+
+@keyframes shining {
+   1% {
+    border-radius: none;
+    filter: drop-shadow(0 0 0 rgba(255, 255, 0,.6)) 
+    drop-shadow(-1px -1px 0 rgba(255, 255, 0,.6));
+    transform: scale(1);
+   }
+   10% {
+    filter: drop-shadow(0 0 40px rgba(255, 255, 0,.6)) 
+    drop-shadow(-1px -1px 0 rgba(255, 255, 0,.6));
+    transform: scale(1);
+   }
+   20% {
+   filter: drop-shadow(0 0 0 rgba(255, 255, 0,.6)) 
+    drop-shadow(-1px -1px 0 rgba(255, 255, 0,.6));
+     transform: scale(1);
+   }
+   30% {
+     filter: drop-shadow(0 0 40px rgba(255, 255, 0,.6)) 
+    drop-shadow(-1px -1px 0 rgba(255, 255, 0,.6));
+     transform: scale(1);
+   }
+   40% {
+     filter: drop-shadow(0 0 0 rgba(255, 255, 0,.6)) 
+    drop-shadow(-1px -1px 0 rgba(255, 255, 0,.6));
+     transform: scale(1);
+   }
+   50% {
+    filter: drop-shadow(0 0 40px rgba(255, 255, 0,.6)) 
+    drop-shadow(-1px -1px 0 rgba(255, 255, 0,.6));
+    transform: scale(1);
+   }
+   60% {
+    filter: drop-shadow(0 0 0 rgba(255, 255, 0,.6)) 
+    drop-shadow(-1px -1px 0 rgba(255, 255, 0,.6));
+    transform: scale(1);   }
+
+   70% {
+    filter: drop-shadow(0 0 40px rgba(255, 255, 0,.6)) 
+    drop-shadow(-1px -1px 0 rgba(255, 255, 0,.6));
+    transform: scale(1);   }
+   80% {
+    filter: drop-shadow(0 0 0 rgba(255, 255, 0,.6)) 
+    drop-shadow(-1px -1px 0 rgba(255, 255, 0,.6));
+    transform: scale(1);   }
+
+   90% {
+    filter: drop-shadow(0 0 40px rgba(255, 255, 0,.6)) 
+    drop-shadow(-1px -1px 0 rgba(255, 255, 0,.6));
+    transform: scale(1);   }
+   99% {
+    filter: drop-shadow(0 0 0 rgba(255, 255, 0,.6)) 
+    drop-shadow(-1px -1px 0 rgba(255, 255, 0,.6));
+    transform: scale(1);
+   }
+ }
+
+.shining {
+  animation-timing-function: ease-out;
+  transform-origin: bottom center;
+  animation-name: shining;
+  animation-duration: 5s;
+}
+
+
+
+/* Classe hidden utilisée sur toutes les pages pour afficher/cacher les éléments */
+.hidden {
+    display:none !important;
+}
