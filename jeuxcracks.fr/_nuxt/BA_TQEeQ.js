@@ -1,0 +1,1 @@
+import{ao as t}from"./9qHdg9Zr.js";const r=t("main",{state:()=>({searchs:[],search:""}),getters:{doubleCount:s=>s.count*2},actions:{setSearchs(s,e){this.searchs=[...s],this.search=e},addSearchs(s){this.searchs.push(s)},setSearch(s){this.search=s}}});export{r as u};
