@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://media.discordapp.net/attachments/1254092956185661559/1254092988083343422/de3d6872-2512-406d-a501-c78e20100e94.jpg?ex=66783c9c&is=6676eb1c&hm=e58344a26315d1ed6fb06db861bc87dd1930f8d55c34a68ce0315a69e31a0dc4&=&format=webp&width=468&height=468" type="image/x-icon">
+
+    <title>Streamify - The Boys</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html">Accueil</a>
+                <a href="films.html">Films</a>
+                <a href="series.html" class="active">Séries</a>
+            </nav>
+        </div>
+    </header>
+    <main class="series-detail-container">
+        <div class="video-container">
+            <iframe id="videoFrame" width="560" height="315" src="https://voe.sx/e/ig1bybufnlph" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="episode-selector">
+            <label for="episodeSelect">Choisissez un épisode:</label>
+            <select id="episodeSelect" onchange="changeEpisode()">
+                <option value="https://voe.sx/e/ig1bybufnlph">S1 EP1</option>
+                <option value="https://voe.sx/e/syagyyacpfxy">S1 EP2</option>
+                <option value="https://mixdrop.si/e/84pd4q4nh6d4zqq">S1 EP3</option>
+                <option value="https://voe.sx/e/3t1gh9wpodtu">S1 EP4</option>
+                <option value="https://voe.sx/e/wqmfbjprt0tb">S1 EP5</option>
+                <option value="https://voe.sx/e/oasikb2zokhl">S1 EP6</option>
+                <option value="https://mixdrop.si/e/7ro6rpxqcooxvk">S1 EP7</option>
+                <option value="https://voe.sx/e/v8f1ub73ecvx">S1 EP8</option>
+                <option value="https://voe.sx/e/0u79hxb3pjwa">S2 EP1</option>
+                <option value="https://voe.sx/e/ik79steqcma8">S2 EP2</option>
+                <option value="https://mixdrop.si/e/0vkwr9enak99m87">S2 EP3</option>
+                <option value="https://mixdrop.si/e/j9lg3qrgt7zkmw">S2 EP4</option>
+                <option value="https://voe.sx/e/ltt0bryasizx">S2 EP5</option>
+                <option value="https://voe.sx/e/a0xonkgirezj">S2 EP6</option>
+                <option value="https://voe.sx/e/agqwgvdbpq4n">S2 EP7</option>
+                <option value="https://voe.sx/e/7fuqhwd9zwwu">S2 EP8</option>
+                <option value="https://voe.sx/e/tnnzqqaunxnu">S3 EP1</option>
+                <option value="https://voe.sx/e/8wtoq7nyfhnm">S3 EP2</option>
+                <option value="https://voe.sx/e/ddsiwx7wukw8">S3 EP3</option>
+                <option value="https://mixdrop.si/e/enojenlxiqq0e7v">S3 EP4</option>
+                <option value="https://voe.sx/e/qbsu12nq5gck">S3 EP5</option>
+                <option value="https://voe.sx/e/w42k4lxr4lz3">S3 EP6</option>
+                <option value="https://voe.sx/e/mitppxt4xsw7">S3 EP7</option>
+                <option value="https://voe.sx/e/tcrjwre7psv5">S3 EP8</option>
+                <option value="https://voe.sx/e/xmbjgquvv9h7">S4 EP1</option>
+                <option value="https://voe.sx/e/q7lpdpxiheqp">S4 EP2</option>
+                <option value="https://voe.sx/e/teiuxiqdsve0">S4 EP3</option>
+                <option value="https://voe.sx/e/eztya9orgpnb">S4 EP4</option>
+                <!-- Ajouter autant d'options que nécessaire -->
+            </select>
+        </div>
+        <div class="vignette-bio-container">
+            <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/4Tw8TB9ikrcgzJgR0LOvgfnXD74.jpg" alt="Série 1" class="series-vignette">
+            <div class="series-bio">
+                Dans un monde fictif où les super-héros se sont laissés corrompre par la célébrité et la gloire et ont peu à peu révélé la part sombre de leur personnalité, une équipe de justiciers qui se fait appeler "The Boys" décide de passer à l'action et d'abattre ces super-héros autrefois appréciés de tous.         </div>
+        </div>
+    </main>
+    <footer>
+        <a href="series.html">Retour aux séries</a>
+    </footer>
+    <script>
+        function changeEpisode() {
+            var videoFrame = document.getElementById('videoFrame');
+            var episodeSelect = document.getElementById('episodeSelect');
+            videoFrame.src = episodeSelect.value;
+        }
+    </script>
+</body>
+</html>
