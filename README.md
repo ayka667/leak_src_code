@@ -7,3 +7,5 @@
 ***3.*** **[nanou.tv](https://nanou.tv/)**
 
 ***4.*** **[streamifyv1.vercel.app](https://streamifyv1.vercel.app/)**
+
+***5.*** **[jeuxcracks.fr](https://jeuxcracks.fr/)**
