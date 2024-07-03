@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://media.discordapp.net/attachments/1254092956185661559/1254092988083343422/de3d6872-2512-406d-a501-c78e20100e94.jpg?ex=66783c9c&is=6676eb1c&hm=e58344a26315d1ed6fb06db861bc87dd1930f8d55c34a68ce0315a69e31a0dc4&=&format=webp&width=468&height=468" type="image/x-icon">
+
+    <title>Streamify - Accueil</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<style>
+/* Styles spécifiques pour la page index.html */
+
+/* Container des vignettes sur la page d'accueil */
+.film-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    margin: 20px auto; /* Centrage horizontal */
+    max-width: 1400px;
+}
+
+/* Item individuel de la vignette */
+.film-item {
+    background-color: #FFFFFF; /* Fond blanc */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    max-width: 200px; /* Largeur maximale légèrement augmentée */
+    text-align: center;
+}
+
+.film-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Ombre agrandie au survol */
+}
+
+.film-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
+/* Styles de navigation */
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+nav a.active {
+    color: #007BFF;
+}
+
+nav .logo {
+    margin-left: auto; /* Pousse le logo à l'extrême droite */
+}
+
+nav .logo img {
+    height: 40px; /* Ajuster la hauteur du logo */
+    transition: transform 0.3s;
+}
+
+nav .logo img:hover {
+    transform: scale(1.1);
+}
+</style>
+<body>
+    <header>
+        <div class="container">
+            <h1>Streamify</h1>
+            <nav>
+                <a href="site.html" class="active">Accueil</a>
+                <a href="films.html">Films</a>
+                <a href="series.html">Series</a>
+                 <a href="https://ufile.io/mcrmw8bc">App</a>
+                <div class="logo">
+                    <a href="https://www.example.com">
+                        <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fraw.githubusercontent.com%2FA75G%2Fdocker-templates%2Fmaster%2Ftemplates%2Ficons%2Fpterodactyl-panel.png&f=1&nofb=1&ipt=cf6153dec68fdf8804d7d3cb5e6c65bd6e0cd04cb3f534b6d039ce2f3136c335&ipo=images" alt="Logo">
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2>Les Meilleurs Films sur le meilleur site ! </h2>
+                <p>Le Site No Update pendant un moments l'equipe de dev est occuper par autre chose </p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Lucas </p>
+        </div>
+    </footer>
+</body>
+</html>
