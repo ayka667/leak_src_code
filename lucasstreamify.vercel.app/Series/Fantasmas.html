@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://media.discordapp.net/attachments/1254092956185661559/1254092988083343422/de3d6872-2512-406d-a501-c78e20100e94.jpg?ex=66783c9c&is=6676eb1c&hm=e58344a26315d1ed6fb06db861bc87dd1930f8d55c34a68ce0315a69e31a0dc4&=&format=webp&width=468&height=468" type="image/x-icon">
+
+    <title>Streamify - Fantasmas </title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html">Accueil</a>
+                <a href="films.html">Films</a>
+                <a href="series.html" class="active">Séries</a>
+            </nav>
+        </div>
+    </header>
+    <main class="series-detail-container">
+        <div class="video-container">
+            <iframe id="videoFrame" width="560" height="315" src="https://voe.sx/e/r51dpnxpobct" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="episode-selector">
+            <label for="episodeSelect">Choisissez un épisode:</label>
+            <select id="episodeSelect" onchange="changeEpisode()">
+                <option value="https://voe.sx/e/r51dpnxpobct">Épisode 1</option>
+                <option value="https://voe.sx/e/u8janfuh6f1p">Épisode 2</option>
+                <option value="https://voe.sx/e/sm6juwv0dn6o">Épisode 3</option>
+                <!-- Ajouter autant d'options que nécessaire -->
+            </select>
+        </div>
+        <div class="vignette-bio-container">
+            <img src="https://fr.web.img5.acsta.net/c_310_420/img/82/c3/82c34f94004cd4fd3f62623a18e3b419.jpg" alt="Série 1" class="series-vignette">
+            <div class="series-bio">
+                Le périple étrange de Julio à la recherche d’une boucle d’oreille. Sa quête l'amène à rencontrer des personnages décalés et à se retrouver dans des situations cocasses.            </div>
+        </div>
+    </main>
+    <footer>
+        <a href="series.html">Retour aux séries</a>
+    </footer>
+    <script>
+        function changeEpisode() {
+            var videoFrame = document.getElementById('videoFrame');
+            var episodeSelect = document.getElementById('episodeSelect');
+            videoFrame.src = episodeSelect.value;
+        }
+    </script>
+</body>
+</html>
