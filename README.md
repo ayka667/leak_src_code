@@ -9,3 +9,5 @@
 ***4.*** **[streamifyv1.vercel.app](https://streamifyv1.vercel.app/)**
 
 ***5.*** **[jeuxcracks.fr](https://jeuxcracks.fr/)**
+
+***6.*** **[streamify-v2-rho.vercel.app](https://streamify-v2-rho.vercel.app/)**
