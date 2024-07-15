@@ -11,3 +11,5 @@
 ***5.*** **[jeuxcracks.fr](https://jeuxcracks.fr/)**
 
 ***6.*** **[streamify-v2-rho.vercel.app](https://streamify-v2-rho.vercel.app/)**
+
+***7.*** **[luamenu.xyz](https://luamenu.xyz/)**
