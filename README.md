@@ -15,3 +15,5 @@
 ***7.*** **[luamenu.xyz](https://luamenu.xyz/)**
 
 ***8.*** **[www.andapirate.com](https://www.andapirate.com/)**
+
+***9.*** **[45.145.166.23:40168](http://45.145.166.23:40168/)** (Random txAdmin Panel)
